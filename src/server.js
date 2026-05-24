@@ -1,12 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import cors from "cors";
 import morgan from "morgan";
 
 import connectDB from "./config/db.js";
 import resumeRoutes from "./routes/resume.routes.js";
 
-dotenv.config();
+// dotenv.config();
 
 const app = express();
 

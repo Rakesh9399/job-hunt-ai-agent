@@ -3,6 +3,8 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 import Resume from "../models/resume.model.js";
 
+import { analyzeResumeWithAI } from "../services/resumeAnalyzer.service.js";
+
 export const uploadResume = async (req, res) => {
   try {
     if (!req.file) {
@@ -12,7 +14,7 @@ export const uploadResume = async (req, res) => {
       });
     }
 
-    // Read uploaded PDF
+    // Read PDF
     const dataBuffer = fs.readFileSync(req.file.path);
 
     // Load PDF
@@ -22,7 +24,7 @@ export const uploadResume = async (req, res) => {
 
     let extractedText = "";
 
-    // Loop through all pages
+    // Extract all pages text
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
 
@@ -35,15 +37,22 @@ export const uploadResume = async (req, res) => {
       extractedText += pageText + "\n";
     }
 
+    // AI Analyze
+    const aiData = await analyzeResumeWithAI(
+      extractedText
+    );
+
     // Save in DB
     const savedResume = await Resume.create({
       fileName: req.file.filename,
       extractedText,
+      aiData,
     });
 
     res.status(201).json({
       success: true,
-      message: "Resume uploaded successfully",
+      message:
+        "Resume uploaded and analyzed successfully",
       data: savedResume,
     });
   } catch (error) {

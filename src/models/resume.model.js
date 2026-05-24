@@ -11,6 +11,18 @@ const resumeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    aiData: {
+      skills: [String],
+
+      projects: [String],
+
+      technologies: [String],
+
+      experience: String,
+
+      preferredRoles: [String],
+    },
   },
   {
     timestamps: true,
