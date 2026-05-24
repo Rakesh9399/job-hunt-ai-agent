@@ -36,6 +36,9 @@ coverage/
 # Cache
 .cache/
 
+# Sessions
+sessions/
+
 # Runtime data
 pids
 *.pid

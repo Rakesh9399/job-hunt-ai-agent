@@ -1,28 +1,33 @@
 import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema(
-  {
-    companyName: String,
+    {
+        companyName: String,
 
-    role: String,
+        role: String,
 
-    salary: String,
+        salary: String,
 
-    location: String,
+        location: String,
 
-    applyLink: String,
+        applyLink: String,
 
-    description: String,
+        description: String,
 
-    source: String,
+        source: String,
 
-    skills: [String],
+        skills: [String],
 
-    matchScore: Number,
-  },
-  {
-    timestamps: true,
-  }
+        matchScore: Number,
+
+        hrEmailDraft: {
+            subject: String,
+            body: String,
+        },
+    },
+    {
+        timestamps: true,
+    }
 );
 
 const Job = mongoose.model("Job", jobSchema);
