@@ -5,6 +5,8 @@ import { chromium } from "playwright";
 const SESSION_FILE =
     "sessions/linkedin-session.json";
 
+import Job from "../models/job.model.js";
+
 export const openLinkedInJobs =
     async () => {
         let context;
@@ -113,6 +115,30 @@ export const openLinkedInJobs =
                     };
                 });
             }
+        );
+
+        for (const job of jobs) {
+            await Job.findOneAndUpdate(
+                {
+                    role: job.title,
+                    companyName: job.company,
+                },
+                {
+                    role: job.title,
+                    companyName: job.company,
+                    location: job.location,
+                    easyApply: job.easyApply,
+                    source: "LinkedIn",
+                },
+                {
+                    upsert: true,
+                    new: true,
+                }
+            );
+        }
+
+        console.log(
+            `${jobs.length} jobs saved`
         );
 
         console.log(

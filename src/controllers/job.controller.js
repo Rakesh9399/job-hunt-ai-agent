@@ -155,3 +155,24 @@ export const getAllJobs = async (
         });
     }
 };
+
+export const getSavedJobs =
+    async (req, res) => {
+        try {
+            const jobs = await Job.find()
+                .sort({
+                    createdAt: -1,
+                });
+
+            res.json({
+                success: true,
+                total: jobs.length,
+                data: jobs,
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message,
+            });
+        }
+    };

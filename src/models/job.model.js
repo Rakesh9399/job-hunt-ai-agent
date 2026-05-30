@@ -24,6 +24,23 @@ const jobSchema = new mongoose.Schema(
             subject: String,
             body: String,
         },
+
+        linkedinJobId: String,
+
+        companyName: String,
+
+        role: String,
+
+        location: String,
+
+        applyLink: String,
+
+        easyApply: Boolean,
+
+        source: {
+            type: String,
+            default: "LinkedIn",
+        },
     },
     {
         timestamps: true,
