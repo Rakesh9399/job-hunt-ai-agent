@@ -80,6 +80,24 @@ export const openLinkedInJobs =
 
         console.log("Job cards found");
 
+        // Click first job
+        const firstJob = page.locator(
+            ".jobs-search-results__list-item"
+        ).first();
+
+        await firstJob.click();
+
+        await page.waitForTimeout(5000);
+
+        // Extract description
+        const description =
+            await page.locator(
+                ".jobs-description-content__text"
+            ).innerText();
+
+        console.log("DESCRIPTION:");
+        console.log(description);
+
         const jobs = await page.$$eval(
             ".jobs-search-results__list-item",
             (cards) => {

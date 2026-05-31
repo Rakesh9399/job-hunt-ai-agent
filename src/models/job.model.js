@@ -41,6 +41,14 @@ const jobSchema = new mongoose.Schema(
             type: String,
             default: "LinkedIn",
         },
+
+        aiMatchScore: Number,
+
+        matchedSkills: [String],
+
+        missingSkills: [String],
+
+        matchReason: String,
     },
     {
         timestamps: true,
